@@ -9,6 +9,7 @@ import Header from "@/components/ui/shared/header";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/lib/user-store";
 import { LoaderCircle } from "lucide-react";
+import AddPassword from "@/components/ui/shared/add-password";
 
 export type PasswordType = {
   id: string;
@@ -52,14 +53,23 @@ export default function HomePage() {
   if (!user) return null;
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <main className="min-h-screen flex flex-col bg-background">
+      <div className="container mx-auto px-4 py-8 max-w-7xl flex flex-col flex-1">
         <Header user={user} />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {passwords?.map((password) => (
-            <PassowrdCard key={password.id} password={password} />
-          ))}
-        </div>
+        {passwords && passwords.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {passwords.map((password) => (
+              <PassowrdCard key={password.id} password={password} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex gap-2 flex-col flex-1 items-center justify-center">
+            <p className="text-muted-foreground">
+              No passwords saved yet. Start by adding one!
+            </p>
+            <AddPassword userId={user.uid} />
+          </div>
+        )}
       </div>
     </main>
   );

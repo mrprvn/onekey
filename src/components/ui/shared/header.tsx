@@ -3,7 +3,7 @@ import { User } from "firebase/auth";
 import { Button } from "../button";
 import { Separator } from "../separator";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { LogOut } from "lucide-react";
+import { Key, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { logout } from "@/lib/firebase-auth";
 import AddPassword from "./add-password";
@@ -16,7 +16,8 @@ const Header = ({ user }: { user: User }) => {
   };
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-      <div className="cursor-pointer">
+      <div className="cursor-pointer flex items-center gap-1">
+        <Key size={36} strokeWidth={3} />
         <h2 className="text-4xl font-bold tracking-tight select-none">
           OneKey
         </h2>

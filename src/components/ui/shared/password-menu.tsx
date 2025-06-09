@@ -96,7 +96,10 @@ const PassowrdMenu = ({ password }: { password: PasswordType }) => {
         <DialogContent className="sm:max-w-md">
           <form
             className="space-y-4"
-            onSubmit={() => handleEditPassword(user?.uid, password.id)}
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleEditPassword(user?.uid, password.id);
+            }}
           >
             <DialogHeader>
               <DialogTitle>

@@ -81,7 +81,12 @@ const AddPassword = ({ userId }: { userId: string }) => {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSubmit();
+            }}
+          >
             <DialogHeader>
               <DialogTitle>Add New Password</DialogTitle>
               <DialogDescription>
