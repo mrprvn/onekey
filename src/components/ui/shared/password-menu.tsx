@@ -94,82 +94,85 @@ const PassowrdMenu = ({ password }: { password: PasswordType }) => {
       {/* Edit Password Dialog */}
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
         <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              Edit Password for{" "}
-              <span className="capitalize">{password.title}</span>
-            </DialogTitle>
-            <DialogDescription>
-              Update the password entry details.
-            </DialogDescription>
-          </DialogHeader>
+          <form
+            className="space-y-4"
+            onSubmit={() => handleEditPassword(user?.uid, password.id)}
+          >
+            <DialogHeader>
+              <DialogTitle>
+                Edit Password for{" "}
+                <span className="capitalize">{password.title}</span>
+              </DialogTitle>
+              <DialogDescription>
+                Update the password entry details.
+              </DialogDescription>
+            </DialogHeader>
 
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="edit-title">Title *</Label>
-              <Input
-                id="edit-title"
-                value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-                placeholder="e.g., Facebook, Gmail"
-              />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-title">Title *</Label>
+                <Input
+                  id="edit-title"
+                  value={formData.title}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
+                  placeholder="e.g., Facebook, Gmail"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="edit-username">Username / Email *</Label>
+                <Input
+                  id="edit-username"
+                  value={formData.username}
+                  onChange={(e) =>
+                    setFormData({ ...formData, username: e.target.value })
+                  }
+                  placeholder="username or email"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="edit-password">New Password</Label>
+                <Input
+                  id="edit-password"
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  placeholder="Enter password"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="master-key">Master Key</Label>
+                <Input
+                  id="master-key"
+                  type="text"
+                  value={masterKey}
+                  onChange={(e) => setMasterKey(e.target.value)}
+                  placeholder="Enter key"
+                  required={formData.password ? true : false}
+                />
+              </div>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="edit-username">Username / Email *</Label>
-              <Input
-                id="edit-username"
-                value={formData.username}
-                onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
-                }
-                placeholder="username or email"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="edit-password">New Password *</Label>
-              <Input
-                id="edit-password"
-                type="password"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                placeholder="Enter password"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="master-key">Master Key</Label>
-              <Input
-                id="master-key"
-                type="text"
-                value={masterKey}
-                onChange={(e) => setMasterKey(e.target.value)}
-                placeholder="Enter key"
-              />
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button
-              className="cursor-pointer"
-              variant="outline"
-              onClick={() => setShowEditDialog(true)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="cursor-pointer"
-              onClick={() => handleEditPassword(user?.uid, password.id)}
-            >
-              Save Changes
-            </Button>
-          </DialogFooter>
+            <DialogFooter>
+              <Button
+                className="cursor-pointer"
+                variant="outline"
+                onClick={() => setShowEditDialog(true)}
+              >
+                Cancel
+              </Button>
+              <Button className="cursor-pointer" type="submit">
+                Save Changes
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
 

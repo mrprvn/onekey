@@ -92,7 +92,7 @@ export default function AboutPage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">
               How It Works
@@ -142,10 +142,10 @@ export default function AboutPage() {
                   </blockquote>
                   <div className="mt-4 flex items-center">
                     <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-                      <span className="font-medium text-sm">JD</span>
+                      <span className="font-medium text-sm">PS</span>
                     </div>
                     <div className="ml-3">
-                      <p className="font-medium">Jane Doe</p>
+                      <p className="font-medium">Praveen Singh</p>
                       <p className="text-sm text-muted-foreground">
                         Software Developer
                       </p>
@@ -193,7 +193,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-20">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">
               Start securing your digital life today.

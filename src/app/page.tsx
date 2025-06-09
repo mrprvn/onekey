@@ -8,6 +8,7 @@ import PassowrdCard from "@/components/ui/shared/password-card";
 import Header from "@/components/ui/shared/header";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/lib/user-store";
+import { LoaderCircle } from "lucide-react";
 
 export type PasswordType = {
   id: string;
@@ -41,7 +42,11 @@ export default function HomePage() {
   }, [router, setUser]);
 
   if (loading) {
-    return <p className="text-center mt-10">Loading...</p>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <LoaderCircle className="animate-spin" size={40} />
+      </div>
+    );
   }
 
   if (!user) return null;

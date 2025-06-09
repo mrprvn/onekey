@@ -31,6 +31,7 @@ const AddPassword = ({ userId }: { userId: string }) => {
 
   const handleSubmit = async () => {
     const encryptedPassword = await encryptText(password, masterKey);
+
     await addPassword(userId, {
       title: name,
       username,
@@ -80,55 +81,61 @@ const AddPassword = ({ userId }: { userId: string }) => {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Add New Password</DialogTitle>
-            <DialogDescription>
-              Store your credentials securely.
-            </DialogDescription>
-          </DialogHeader>
+          <form onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>Add New Password</DialogTitle>
+              <DialogDescription>
+                Store your credentials securely.
+              </DialogDescription>
+            </DialogHeader>
 
-          <div className="grid gap-4 py-4">
-            <Input
-              placeholder="Website or App Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Input
-              placeholder="Username or Email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <div className="flex gap-2">
+            <div className="grid gap-4 py-4">
               <Input
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Website or App Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Username or Email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Master Key"
+                  type="masterKey"
+                  value={masterKey}
+                  onChange={(e) => setMasterKey(e.target.value)}
+                  required
+                />
+              </div>
+              <Textarea
+                placeholder="Optional notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
               />
             </div>
-            <div className="flex gap-2">
-              <Input
-                placeholder="Master Key"
-                type="masterKey"
-                value={masterKey}
-                onChange={(e) => setMasterKey(e.target.value)}
-              />
-            </div>
-            <Textarea
-              placeholder="Optional notes"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-            />
-          </div>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button type="button" variant="ghost">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button onClick={handleSubmit}>Save</Button>
-          </DialogFooter>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="ghost">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type="submit">Save</Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>
