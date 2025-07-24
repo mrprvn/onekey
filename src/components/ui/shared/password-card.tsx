@@ -139,6 +139,17 @@ const PassowrdCard = ({ password }: { password: PasswordType }) => {
               </div>
             </div>
           </div>
+          {
+            password?.note && <div>
+            <Label className="text-xs text-muted-foreground">Notes</Label>
+            <div className="flex items-center gap-2 mt-1">
+              <p className="text-sm font-mono truncate flex-1">
+                {password.note}
+              </p>
+            </div>
+          </div>
+          }
+       
         </div>
       </CardContent>
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
