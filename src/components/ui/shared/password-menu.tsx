@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "../dropdown-menu";
 import { Button } from "../button";
-import { Edit, MoreVertical, Trash2 } from "lucide-react";
+import { Edit, Lock, MoreVertical, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,17 +31,25 @@ import {
 import { Label } from "../label";
 import { Input } from "../input";
 import { encryptText } from "@/lib/crypto";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import { PasswordGenerator } from "./password-generator";
 
 const PassowrdMenu = ({ password }: { password: PasswordType }) => {
   const user = useUserStore((state) => state.user);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [masterKey, setMasterKey] = useState("");
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [formData, setFormData] = useState({
     title: password.title,
     username: password.username,
     password: "",
   });
+
+  const handleInsertPassword = (generatedPass: string) => {
+    setFormData({ ...formData, password: generatedPass })
+    setIsPopoverOpen(false)
+  }
 
   const handleEditPassword = async (
     userId: string | undefined,
@@ -140,15 +148,28 @@ const PassowrdMenu = ({ password }: { password: PasswordType }) => {
 
               <div className="space-y-2">
                 <Label htmlFor="edit-password">New Password</Label>
-                <Input
-                  id="edit-password"
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                  placeholder="Enter password"
-                />
+                <div className="flex items-center gap-2">
+                  <Input
+                    id="edit-password"
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
+                    placeholder="Enter password"
+                  />
+                  <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="mt-2 bg-transparent m-0 cursor-pointer">
+                        <Lock />
+                        New
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <PasswordGenerator onInsert={handleInsertPassword} />
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </div>
 
               <div className="space-y-2">

@@ -18,6 +18,9 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { PasswordType } from "@/app/page";
 import { usePasswordStore } from "@/lib/password-store";
 import { encryptText } from "@/lib/crypto";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import { PasswordGenerator } from "./password-generator";
+import { Lock } from "lucide-react";
 
 const AddPassword = ({ userId }: { userId: string }) => {
   const [name, setName] = useState("");
@@ -26,6 +29,12 @@ const AddPassword = ({ userId }: { userId: string }) => {
   const [masterKey, setMasterKey] = useState("");
   const [notes, setNotes] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
+  const handleInsertPassword = (generatedPass: string) => {
+    setPassword(generatedPass)
+    setIsPopoverOpen(false)
+  }
 
   const setPasswords = usePasswordStore((state) => state.setPasswords);
 
@@ -107,7 +116,7 @@ const AddPassword = ({ userId }: { userId: string }) => {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center justify-center">
                 <Input
                   placeholder="Password"
                   type="password"
@@ -115,6 +124,17 @@ const AddPassword = ({ userId }: { userId: string }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="mt-2 bg-transparent m-0 cursor-pointer">
+                      <Lock />
+                      New
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <PasswordGenerator onInsert={handleInsertPassword} />
+                  </PopoverContent>
+                </Popover>
               </div>
               <div className="flex gap-2">
                 <Input

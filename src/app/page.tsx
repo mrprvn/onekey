@@ -59,7 +59,7 @@ export default function HomePage() {
         {passwords && passwords.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {passwords.map((password) => (
-              <PassowrdCard key={password.id} password={password} />
+              <PassowrdCard key={password.id} password={password}/>
             ))}
           </div>
         ) : (
