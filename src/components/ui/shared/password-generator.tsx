@@ -15,7 +15,6 @@ import {
   generateMemorablePassword,
   generatePin,
   calculatePasswordStrength,
-  getStrengthColor,
   getStrengthText,
 } from "@/lib/password-utils"
 
